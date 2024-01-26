@@ -3,8 +3,9 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { pushData } from "../utils/fieldsData";
 
-const FieldType = ({ catSelect, typeOfField, setTypeOfFeild }) => {
+const FieldType = ({ catSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [typeOfField, setTypeOfFeild] = useState("Select Field Type");
 
   const dispatch = useDispatch();
   const [fieldName, setFieldName] = useState("");
@@ -182,7 +183,8 @@ const FieldType = ({ catSelect, typeOfField, setTypeOfFeild }) => {
             <option value="">Select Field Data Type</option>
             <option value="String">String</option>
             <option value="Integer">Integer</option>
-            {/* Add other types as needed */}
+            <option value="Integer">Date</option>
+      
           </select>
           </div>
           <div className="px-2">

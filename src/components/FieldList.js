@@ -1,22 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import store from "../utils/store";
 import { resetData } from "../utils/fieldsData";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-const FieldList = ({ typeOfField,setTypeOfFeild }) => {
+
+
+const FieldList = ({flag,setFlag}) => {
+
   const dispatch = useDispatch();
+  
 
   const handleReset = () => {
     dispatch(resetData());
   };
-  const handleConfirm = () => {};
+ 
 
   const fieldData = useSelector((store) => store.field.data);
- 
- 
 
-  return (
+  useEffect(() => {
+  
+    const isReduxDataNotEmpty = fieldData && fieldData.length > 0;
+    setFlag(isReduxDataNotEmpty);
+  }, [fieldData, setFlag]);
+
+
+  if (!flag ){
+    return;
+  } else {
+    return (
+      
     <>
       <div className="flex justify-center py-16">
         <table>
@@ -48,12 +62,15 @@ const FieldList = ({ typeOfField,setTypeOfFeild }) => {
         </table>
       </div>
       <div className="flex justify-center">
-        <button
+        <Link to="/form">
+  <button
           className="p-3 mr-6  border-2 border-black rounded-md font-bold  hover:bg-gray-300 "
-          onClick={handleConfirm}
+          
         >
           Confirm
         </button>
+        </Link>
+       
         <button
           className="p-3  border-2 border-black rounded-md  font-bold  hover:bg-gray-300"
           onClick={handleReset}
@@ -62,7 +79,8 @@ const FieldList = ({ typeOfField,setTypeOfFeild }) => {
         </button>
       </div>
     </>
-  );
+  );}
 };
+
 
 export default FieldList;
