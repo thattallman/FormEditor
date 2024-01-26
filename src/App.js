@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Dropdown from "./components/Dropdown";
+import FieldList from "./components/FieldList";
+import FieldType from "./components/FieldType";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import { useState } from "react";
+import Form from "./components/Form";
+
 
 function App() {
+  const [catSelect, setcatSelect] = useState("Select");
+  const [typeOfField, setTypeOfFeild] = useState("Select Field Type");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className=" flex justify-center">
+        <Dropdown catSelect={catSelect} setcatSelect={setcatSelect} />
+      </div>
+
+      <Provider store={store}>
+        <FieldType
+          catSelect={catSelect}
+          typeOfField={typeOfField}
+          setTypeOfFeild={setTypeOfFeild}
+        />
+        <FieldList typeOfField={typeOfField} setTypeOfFeild={setTypeOfFeild} />
+        <Form />
+      </Provider>
+    </>
   );
 }
 
